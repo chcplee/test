@@ -1,0 +1,4 @@
+*.class
+.class
+.target/
+wemake_workspace/coding-test/target/
