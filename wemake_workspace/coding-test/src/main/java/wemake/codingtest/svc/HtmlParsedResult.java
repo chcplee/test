@@ -15,7 +15,7 @@ public class HtmlParsedResult implements Comparator<Character> {
 	
 	public void sort() {
 		//String[] tempStringArry = new String[alphaStrBuf.length()];
-		logger.info("알파벳 변환전 : " + alphaStrBuf.toString());
+		logger.info("알파벳 변환전 : " + alphaStrBuf.toString() + "  카운트 : " +alphaStrBuf.length());
 		char[] temp = alphaStrBuf.toString().toCharArray();
 		Character[] charArray = new Character[alphaStrBuf.length()];
 		for( int i = 0 ; i < alphaStrBuf.length();i++) {

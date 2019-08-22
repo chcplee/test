@@ -1,8 +1,8 @@
 package wemake.codingtest.api;
 
 public class ResponseDto {
-	private String quotient;
-	private String remainder;
+	private String quotient = "";
+	private String remainder ="";
 	public String getQuotient() {
 		return quotient;
 	}
@@ -14,6 +14,11 @@ public class ResponseDto {
 	}
 	public void setRemainder(String remainder) {
 		this.remainder = remainder;
+	}
+	
+	@Override
+	public String toString() {
+		return "quotient : " + quotient +  " , remainder : " + remainder;
 	}
 
 }

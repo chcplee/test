@@ -29,9 +29,10 @@ public class TestController  {
 	 @Test
 	 public void doTest() throws Exception {
 		 RequestTestDto testDto = new RequestTestDto();
-		 testDto.setUrl("www.naver.com");
-		 testDto.setOption(ParsingType.FULL_TEXT.getTypeString());
-		 testDto.setGroupCount(5);
+		 testDto.setUrl("https://www.naver.com");
+		 //testDto.setOption(ParsingType.FULL_TEXT.getTypeString());
+		 testDto.setOption(ParsingType.WITHOUT_TAG.getTypeString());
+		 testDto.setGroupCount(7);
 		 Gson gson = new Gson();
 		 String json = gson.toJson(testDto);
 		 
