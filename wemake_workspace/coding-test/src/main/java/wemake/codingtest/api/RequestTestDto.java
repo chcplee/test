@@ -22,4 +22,14 @@ public class RequestTestDto {
 	public void setGroupCount(int groupCount) {
 		this.groupCount = groupCount;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("url : " + url);
+		buffer.append("option : " + option);
+		buffer.append("groupCount : " + groupCount);
+		
+		return buffer.toString();
+	}
 }
