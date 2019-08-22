@@ -1,11 +1,12 @@
 package wemake.codingtest.svc;
 
-import java.util.regex.Pattern;
+import java.nio.charset.Charset;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,23 +21,28 @@ public class TestService {
 	
 	
 	private String getHtml(String url) {
-		logger.info(url);
-		//String testString = "나o는 k O이A창B하E다zab@0103차2F3*Zㄴ3ㅠGdab23iI!#^89";
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.TEXT_HTML); 
-		//HttpEntity param= new HttpEntity(JSONInput, headers); 
+		logger.info("HTML을 받기 위한 요청 URL : " + url);
+		
 		RestTemplate restTemplate = new RestTemplate(); 
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-		logger.info(result.getBody());
-		return result.getBody();
+		HttpHeaders headers = new HttpHeaders();
+        Charset utf8 = Charset.forName("UTF-8");
+        MediaType mediaType = new MediaType("text", "html", utf8);
+        headers.setContentType(mediaType); 
+        headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" +
+        		" AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        String result = responseEntity.getBody();
+        logger.info("응답 받은 HTML : " + result);
+        return result;
+
 	}
 	
 	public ResponseDto doTest(RequestTestDto request) {
 		logger.info("서비스 호출!!!");
-		logger.info(request.toString());
 		String html = getHtml(request.getUrl());
 		HtmlParse parser = null;
-		ParsingType type;
 		if(ParsingType.FULL_TEXT.getTypeString().equals(request.getOption())){
 			parser = new DefaultHtmlParser();
 		}else {
@@ -45,15 +51,15 @@ public class TestService {
 		// 정렬된 상태로 알파벳 문자 배열과 숫자 배열을 가지고 있음
 		HtmlParsedResult result = parser.parseHtmlText(html);
 		logger.info("**************************** 알파벳 =     " + result.getAlphaStr() + " ****************************");
-		//logger.info("숫자 = " + result.getNumberStr());
+		logger.info("숫자 = " + result.getNumberStr());
 		logger.info("mix = " + result.getMixStr());
 		ResponseDto respDto = new ResponseDto();
-		joinTwoStreamAndGroup(result,respDto,request.getGroupCount());
+		group(result,respDto,request.getGroupCount());
 		logger.info("결과값 = " + respDto.toString());
 		return respDto;
 	}
 	
-	private void joinTwoStreamAndGroup(HtmlParsedResult result, ResponseDto resp, int groupCount) {
+	private void group(HtmlParsedResult result, ResponseDto resp, int groupCount) {
 		String mixedStr = result.getMixStr();
 		int totalCount = mixedStr.length();
 		if( totalCount == groupCount || groupCount == 1) {

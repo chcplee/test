@@ -27,8 +27,8 @@ public class RequestTestDto {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("url : " + url);
-		buffer.append("option : " + option);
-		buffer.append("groupCount : " + groupCount);
+		buffer.append(", option : " + option);
+		buffer.append(", groupCount : " + groupCount);
 		
 		return buffer.toString();
 	}

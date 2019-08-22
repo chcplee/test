@@ -18,15 +18,8 @@ public class TestRestController {
 	@Autowired
 	private TestService service;
 	
-
-	@RequestMapping(value="/test/1",method=RequestMethod.GET)
-	public ResponseDto getResult2() {
-		logger.info("테스트 함수 시작 11111");
-		ResponseDto res = new ResponseDto();
-		return res;
-	}
 	
-	@RequestMapping(value="/test",method=RequestMethod.POST,produces="application/json")
+	@RequestMapping(value="/print",method=RequestMethod.POST)
 	public ResponseDto getResult(@RequestBody RequestTestDto request) {
 		logger.info("테스트 함수 시작");
 		logger.info(request.toString());

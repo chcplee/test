@@ -37,7 +37,7 @@ public class TestController  {
 		 String json = gson.toJson(testDto);
 		 
          this.mockMvc.perform(
-        		 MockMvcRequestBuilders.post("/test")
+        		 MockMvcRequestBuilders.post("/print")
                  .contentType(MediaType.APPLICATION_JSON)
                  .content(json)).andReturn();
 		 //..andExpect(jsonPath("$.deployDate").exists());

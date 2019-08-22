@@ -6,12 +6,14 @@ import org.slf4j.LoggerFactory;
 public class HtmlParserWithoutTag extends DefaultHtmlParser {
 	private Logger logger = LoggerFactory.getLogger(HtmlParserWithoutTag.class);
 	
-	private static final String tagPattern  = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";  
+	private static final String tagPattern  ="<[^>]*>" ;  
 	
 	@Override
 	protected String preProcess(String htmlText) {
 		String temp = htmlText.replaceAll(tagPattern, "");
-		logger.info("태그 제거 한 후 : " + temp);
+		logger.info("--------------------------------------------- 태그 제거 한 후 : ");
+		logger.info(temp);
+		logger.info("---------------------------------------------------------------");	
 		return temp;
 	}
 }
