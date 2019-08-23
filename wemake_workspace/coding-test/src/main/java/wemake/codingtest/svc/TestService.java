@@ -50,12 +50,12 @@ public class TestService {
 		}
 		// 정렬된 상태로 알파벳 문자 배열과 숫자 배열을 가지고 있음
 		HtmlParsedResult result = parser.parseHtmlText(html);
-		logger.info("**************************** 알파벳 =     " + result.getAlphaStr() + " ****************************");
-		logger.info("숫자 = " + result.getNumberStr());
-		logger.info("mix = " + result.getMixStr());
+		logger.debug("**************************** 알파벳 =     " + result.getAlphaStr() + " ****************************");
+		logger.debug("숫자 = " + result.getNumberStr());
+		logger.debug("mix = " + result.getMixStr());
 		ResponseDto respDto = new ResponseDto();
 		group(result,respDto,request.getGroupCount());
-		logger.info("결과값 = " + respDto.toString());
+		logger.debug("결과값 = " + respDto.toString());
 		return respDto;
 	}
 	
@@ -70,7 +70,7 @@ public class TestService {
 			return;
 		}
 		int remainerCount = totalCount % groupCount;
-		logger.info("나머지 = " + remainerCount);
+		logger.debug("나머지 = " + remainerCount);
 		String quotient = mixedStr.substring(0, totalCount - remainerCount);
 		String remainer = mixedStr.substring(totalCount - remainerCount, totalCount);
 		resp.setQuotient(quotient);
